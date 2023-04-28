@@ -223,11 +223,11 @@ import PIL
 import tensorflow as tf
 
 from tensorflow import keras
-from tensorflow.keras import layers
-from tensorflow.keras.models import Sequential
+from keras import layers
+from keras.models import Sequential
 import pathlib
 import keras.utils as image
-from tensorflow.keras.utils import load_img, img_to_array 
+from keras.utils import load_img, img_to_array 
 from tensorflow import keras
 model = keras.models.load_model('my_model.h5')
 model.summary()
