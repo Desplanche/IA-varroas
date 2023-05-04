@@ -30,10 +30,10 @@ compte_crop = [] # N° des crops
 # folder= "C:/Users/Bernard/Documents/Scan_300ppp/crop_a_tester/crops_22/"
 # folder= "C:/Users/Bernard/Documents/Scan_300ppp/faire_crop/filtre_a_crop/"
 # folder1= "C:/Users/Bernard/Documents/Scan_300ppp/faire_crop/filtre_a_crop_1/"
-folder= "E:/scan_17_01_2023/filtre_a_crop/"
-folder1= "E:/scan_17_01_2023/filtre_a_crop_1/"
-folder0= "E:/scan_17_01_2023/scans_originaux/"
-dim_crop = 22 # demi-largeur du crop 22 X 22
+folder= 'Recuperation_crop_1/'
+folder1= 'Recuperation_crop_2/'
+folder0= 'Img_lange/'
+dim_crop = 40 # demi-largeur du crop 22 X 22
 
 """
 try:    
@@ -203,6 +203,7 @@ parameters_blob=(minThreshold,maxThreshold,blobColor,minArea,maxArea,minConvexit
 # workingImage = cv2.imread(filename)  # image d'origine 
 
 image_names=os.listdir(folder0) # folder0= "E:/scan_17_01_2023/scans_originaux/"
+print(image_names)
 for filename in image_names:
     fname = folder0+filename
     print (fname)
@@ -240,11 +241,11 @@ for filename in image_names:
     import tensorflow as tf
 
     from tensorflow import keras
-    from tensorflow.keras import layers
-    from tensorflow.keras.models import Sequential
+    from keras import layers
+    from keras.models import Sequential
     import pathlib
     import keras.utils as image
-    from tensorflow.keras.utils import load_img, img_to_array 
+    from keras.utils import load_img, img_to_array 
     from tensorflow import keras
     model = keras.models.load_model('my_model.h5')
     model.summary()
@@ -253,8 +254,8 @@ for filename in image_names:
     # data_dir = pathlib.Path(data_dir)
 
     batch_size = 100
-    img_height = 22
-    img_width = 22
+    img_height = dim_crop
+    img_width = dim_crop
 
     min_predict_non_crop = 100
     max_predict_non_crop = 0
