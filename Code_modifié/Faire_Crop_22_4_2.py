@@ -231,7 +231,7 @@ for filename in image_names:
     # Recherche du blob : "Vincent-Fabrice-Jody" dans Image_1  => "def analyse"
     nbVarroas,im_with_keypoints,Image_2 = analyse(s_nom_fichier,parameters_blob,Image_0,compte_crop_1)
 
-
+   
     # https://www.tensorflow.org/tutorials/images/classification
     import matplotlib.pyplot as plt
     import numpy as np
@@ -247,8 +247,8 @@ for filename in image_names:
     import keras.utils as image
     from keras.utils import load_img, img_to_array 
     from tensorflow import keras
-    model = keras.models.load_model('my_model.h5')
-    model.summary()
+    #model = keras.models.load_model('my_model.h5')
+    #model.summary()
 
     # data_dir = r"C:\Users\Bernard\Documents\Scan_300ppp\crop_a_tester"
     # data_dir = pathlib.Path(data_dir)
@@ -282,54 +282,54 @@ for filename in image_names:
     # une page blanche
     data['image_height'] = workingImage.shape[0]
     data['image_width'] = workingImage.shape[1]
-    page_blanche_1 = np.zeros((data['image_height'],data['image_width'],3), np.uint8) # fabrication de la page
-    page_blanche_1.fill(255)  # remplit l'image de la couleur blanche
+    #page_blanche_1 = np.zeros((data['image_height'],data['image_width'],3), np.uint8) # fabrication de la page
+    #page_blanche_1.fill(255)  # remplit l'image de la couleur blanche
 
     image_names=os.listdir(folder)
-    for filename in image_names:
+    #for filename in image_names:
 
-        img = tf.keras.preprocessing.image.load_img(folder+filename, target_size=(img_height, img_width))
-        workingcrop = img # on concerne l'image du crop
+        #img = tf.keras.preprocessing.image.load_img(folder+filename, target_size=(img_height, img_width))
+        #workingcrop = img # on concerne l'image du crop
 
         # https://stackoverflow.com/questions/72383347/how-to-fix-it-attributeerror-module-keras-preprocessing-image-has-no-attribu
-        x=image.img_to_array(img)
-        x=np.expand_dims(x, axis=0)
-        images = np.vstack([x])
+        #x=image.img_to_array(img)
+        #x=np.expand_dims(x, axis=0)
+        #images = np.vstack([x])
         
-        predictions = model.predict(images, batch_size=100)
-        score = tf.nn.softmax(predictions[0])
-        print ("score",score)
-        print(filename,
-        " most likely belongs to {} with a {:.2f} percent confidence."
-        .format(class_names[np.argmax(score)], 100 * np.max(score))
-        )
-        aa = np.argmax(score)
-        if (aa == 1) :
-            compt_crop = [NB_varroas]
+        #predictions = model.predict(images, batch_size=100)
+        #score = tf.nn.softmax(predictions[0])
+        #print ("score",score)
+        #print(filename,
+        #" most likely belongs to {} with a {:.2f} percent confidence."
+        #.format(class_names[np.argmax(score)], 100 * np.max(score))
+        #)
+        #aa = np.argmax(score)
+        #if (aa == 1) :
+            #compt_crop = [NB_varroas]
             # écriture des images positives 
-            tf.keras.preprocessing.image.save_img(folder1+filename,img)
-            NB_varroas = NB_varroas + 1
+            #tf.keras.preprocessing.image.save_img(folder1+filename,img)
+            #NB_varroas = NB_varroas + 1
 
-    print("NB varroas détectés au final: ",NB_varroas)
+    #print("NB varroas détectés au final: ",NB_varroas)
 
     # dessin de rectangles autour des varroas détectés sur l'image de base
 
-    img = workingImage
+    #img = workingImage
     # folder1= "E:/scan_13_01_2023/filtre_a_crop_1/"
-    for filename in os.listdir(folder1) :  # pour vider le répertoire folder
-        c = filename
-        b1 = int( c[5:9])  # coin à gauche 
-        a1 = int(c[10:14]) # coin en haut 
-        print (" b , a ",c,b1,a1, filename)
-        img = cv2.rectangle(img, (b1,a1), (b1+dim_crop,a1+dim_crop), (255, 0, 0), 3) 
-    output= mon_resize(img,30) # retaille la page à 25% pour l'affichage
-    cv2.imshow('workingImage',output) # affiche la page sur l'écran 
-    cv2.waitKey(0) # stop l'éxécution  
+    #for filename in os.listdir(folder1) :  # pour vider le répertoire folder
+        #c = filename
+        #b1 = int( c[5:9])  # coin à gauche 
+        #a1 = int(c[10:14]) # coin en haut 
+        #print (" b , a ",c,b1,a1, filename)
+        #img = cv2.rectangle(img, (b1,a1), (b1+dim_crop,a1+dim_crop), (255, 0, 0), 3) 
+    #output= mon_resize(img,30) # retaille la page à 25% pour l'affichage
+    #cv2.imshow('workingImage',output) # affiche la page sur l'écran 
+    #cv2.waitKey(0) # stop l'éxécution  
 
     # ecriture sur le disque du fichier traité
 
-    c = s_nom_fichier
-    cc= len(s_nom_fichier)
-    nom = c[0:cc-4]+ "_traite.jpg"
-    print ("filename ",s_nom_fichier ," nom ", nom)
-    cv2.imwrite(nom,img)     # ecrit le fichier  sur le disque 
+    #c = s_nom_fichier
+    #cc= len(s_nom_fichier)
+    #nom = c[0:cc-4]+ "_traite.jpg"
+    #print ("filename ",s_nom_fichier ," nom ", nom)
+    #cv2.imwrite(nom,img)  # ecrit le fichier  sur le disque
