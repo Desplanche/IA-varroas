@@ -89,7 +89,7 @@ def insertion(points,compte_crop,ou_pas,h1,cpt) :
     data['image_width'] = workingImage.shape[1]
     page_blanche = np.zeros((data['image_height'],data['image_width'],3), np.uint8) # fabrication de la page
     page_blanche.fill(255)  # remplit l'image de la couleur blanche
-    pas_insertion = 0
+    pas_insertion = 0   
     # h1 = 11 # demi-largeur du crop
     srcW, srcH = page_blanche.shape[1::-1]  # taille de l'image 
     # print('points', points) # liste des coordonnées des varroas détectés
