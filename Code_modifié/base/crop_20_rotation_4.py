@@ -1,10 +1,11 @@
 import sys,os,json
 import cv2
 num_crop = 0
-folder0= "./filtre_a_crop/"
-folder1= "./rotation_resize/"
+folder0= "varroas/"
+folder1= "varoas_rotation/"
 # E:\creation_model_5\neo_non_varroas
 image_names=os.listdir(folder0)
+
 for filename in image_names:
     fname = folder0+filename
     print (fname)
