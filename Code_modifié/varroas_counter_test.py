@@ -50,6 +50,7 @@ def mon_resize (image,taille):
 def insertion(points,compte_crop,ou_pas,h1,cpt) : 
     # insertion dans la page "blanche" des découpes de l'image d'origine autour des varroas détectés 
     # création d'une page blanche
+    crops = []
     data['image_height'] = workingImage.shape[0]
     data['image_width'] = workingImage.shape[1]
     page_blanche = np.zeros((data['image_height'],data['image_width'],3), np.uint8) # fabrication de la page
@@ -80,6 +81,7 @@ def insertion(points,compte_crop,ou_pas,h1,cpt) :
                         result = "crop_img is empty!!"
                     else :
                         # création de l'image positive 
+                        crops.append(crop_img) #ajout du crop à la liste
                         cpt = cpt + 1
                         name_crop = 'filtre_a_crop/crop_'+ str (b1).zfill(4) +'_'+ str(a1).zfill(4)+'.jpg'
                         print("name_crop ",name_crop," taille de la feuille srcW, srcH ", srcW, srcH , "b1,b2 ", b1,b2," a1,a2 ",a1,a2)
@@ -95,10 +97,8 @@ def insertion(points,compte_crop,ou_pas,h1,cpt) :
             # !! inversion y,x en x,y !!!
             coor_crop = [x,y]
     print (" Nb de Varroas inserrés   ", cpt)
-   
-
         
-    return page_blanche # image blanche avec les insertions des varroas détectés
+    return page_blanche, crops # image blanche avec les insertions des varroas détectés
 
 def analyse(filename,parameters,image,compte_crop): 
     # méthode du "Blob Vincent-Fabrice-Jody"
@@ -143,14 +143,13 @@ def analyse(filename,parameters,image,compte_crop):
     ou_pas=2 # création des images positives pour la cascade de Haar
 
     cpt_insertion = 0 # compteur d'insertion de fichier
-    blank_image = insertion (pts,compte_crop,ou_pas,dim_crop/2,cpt_insertion) # création d'une page blanche et insertion des varroas détectés 
-    
+    blank_image, crops = insertion(pts, compte_crop, ou_pas, dim_crop / 2, cpt_insertion)# création d'une page blanche et insertion des varroas détectés 
     
     cv2.imwrite('final_blank_image.jpg',blank_image)     # ecrit le fichier  sur le disque 
     output= mon_resize(blank_image,25) # retaille la page à 25%
     cv2.imshow('image_blob',output) # imprime la page sur l'écran
     cv2.waitKey(0) # stop l'éxécution
-    return nb_varroas,im_with_keypoints,blank_image 
+    return nb_varroas, im_with_keypoints, blank_image, crops 
 
 # passage avec les paramètres du "blob : Vincent-Fabrice-Jody" 
 minThreshold = 99       # 99 33
@@ -184,4 +183,7 @@ compte_crop_1 = 0 # pour le décompte de la sauvegarde des crops
 Image_0 = workingImage.copy() # on garde l'image de départ intact
 
 # Recherche du blob : "Vincent-Fabrice-Jody" dans Image_1  => "def analyse"
-nbVarroas,im_with_keypoints,Image_2 = analyse(s_nom_fichier,parameters_blob,Image_0,compte_crop_1)
+nbVarroas, im_with_keypoints, blank_image, crops = analyse(s_nom_fichier, parameters_blob, Image_0, compte_crop_1)
+cv2.imshow("Crop Image", crops[3])
+cv2.waitKey(0)
+
