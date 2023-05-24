@@ -187,3 +187,32 @@ nbVarroas, im_with_keypoints, blank_image, crops = analyse(s_nom_fichier, parame
 cv2.imshow("Crop Image", crops[3])
 cv2.waitKey(0)
 
+
+num_crop = 0
+folder1 = "./test/"
+
+for crop in crops:
+    print(f"Processing crop {num_crop}")
+    crop = crop[:,:,::-1]
+    # Convertir le tableau NumPy en  objet d'image
+    image = Image.fromarray(np.uint8(crop))
+
+    largeur = 40
+    hauteur = 40
+
+    # Coordonnées du recadrage
+    gauche = (largeur - 20) // 2
+    haut = (hauteur - 20) // 2
+    droite = gauche + 20
+    bas = haut + 20
+
+    # Recadrage de l'image
+    image_recadree = image.crop((gauche, haut, droite, bas))
+
+    # Redimensionnement de l'image à 11x11 pixels
+    image_crop = image_recadree.resize((11, 11))
+
+    fname1 = folder1 + f"crop_20_{num_crop}.jpg"
+    print(fname1)
+    image_crop.save(fname1)
+    num_crop += 1
