@@ -7,6 +7,8 @@ import imutils
 import numpy as np
 import matplotlib.pyplot as plt
 from PIL import Image
+import keras
+import h5py
 
 f, (ax1, ax2) = plt.subplots(1, 2) # create subplots
 coor_crop = [] # liste des coordonnées des crops
@@ -184,12 +186,12 @@ Image_0 = workingImage.copy() # on garde l'image de départ intact
 
 # Recherche du blob : "Vincent-Fabrice-Jody" dans Image_1  => "def analyse"
 nbVarroas, im_with_keypoints, blank_image, crops = analyse(s_nom_fichier, parameters_blob, Image_0, compte_crop_1)
-cv2.imshow("Crop Image", crops[3])
+cv2.imshow("Crop Image", crops[2])
 cv2.waitKey(0)
 
 
 num_crop = 0
-folder1 = "./test/"
+final_crop = []
 
 for crop in crops:
     print(f"Processing crop {num_crop}")
@@ -212,7 +214,37 @@ for crop in crops:
     # Redimensionnement de l'image à 11x11 pixels
     image_crop = image_recadree.resize((11, 11))
 
-    fname1 = folder1 + f"crop_20_{num_crop}.jpg"
-    print(fname1)
-    image_crop.save(fname1)
+    final_crop.append(image_crop)
     num_crop += 1
+
+for i, crop in enumerate(final_crop):
+    print(f"Displaying crop {i}")
+    plt.imshow(crop)
+    plt.show()
+
+
+
+
+# Charger le modèle Keras préalablement entraîné
+model = keras.models.load_model('model.hdf5')
+
+
+predictions = []
+
+for crop in final_crop:
+    # Prétraitement de l'image pour l'adapter à l'entrée du modèle
+    image = crop.resize((11, 11))
+    image = np.array(image) / 255.0  # Normalisation
+
+    # Ajouter une dimension pour correspondre à l'entrée du modèle
+    image = np.expand_dims(image, axis=0)
+
+    # Faire la prédiction avec le modèle
+    prediction = model.predict(image)
+
+    # Ajouter la prédiction à la liste des prédictions
+    predictions.append(prediction)
+
+# Utiliser les prédictions comme nécessaire
+for i, prediction in enumerate(predictions):
+    print(f"Prediction for crop {i}: {prediction}")
