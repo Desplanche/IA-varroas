@@ -173,6 +173,9 @@ minConvexity = 0.7      # 0.7
 minInertiaRatio = 0.3 # 0.4
 parameters_blob=(minThreshold,maxThreshold,blobColor,minArea,maxArea,minConvexity,minConvexity,minInertiaRatio)
 
+
+
+
 # programme principale 
 
 # workingImage = cv2.imread(filename)  # image d'origine 
@@ -235,7 +238,7 @@ for i, crop in enumerate(final_crop):
 
 
 # Charger le modèle Keras préalablement entraîné
-model = keras.models.load_model('model.h5')
+model = keras.models.load_model('my_model_200.h5')
 
 
 
