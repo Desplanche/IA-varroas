@@ -9,6 +9,15 @@ import matplotlib.pyplot as plt
 from PIL import Image
 import keras
 import h5py
+import pandas as pd
+from sklearn.model_selection import train_test_split
+import tensorflow as tf
+from sklearn.metrics import confusion_matrix
+import seaborn as sns
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import roc_curve
+from sklearn.metrics import roc_auc_score
+from matplotlib import pyplot
 
 f, (ax1, ax2) = plt.subplots(1, 2) # create subplots
 coor_crop = [] # liste des coordonnées des crops
@@ -137,7 +146,7 @@ def analyse(filename,parameters,image,compte_crop):
 
     pts = np.asarray([[p.pt[0], p.pt[1]] for p in keyPoints])
     # print('  pts : ',pts)
-    cols = pts[:,0]
+    cols = pts[:,0] 
     rows = pts[:,1]
     # h1 = pts.size/2 # demi-largeur du crop autour du varroa : pas terrible !!!
     ax2.imshow(cv2.cvtColor(image, cv2.COLOR_BGR2RGB))
@@ -226,7 +235,8 @@ for i, crop in enumerate(final_crop):
 
 
 # Charger le modèle Keras préalablement entraîné
-model = keras.models.load_model('model.hdf5')
+model = keras.models.load_model('model.h5')
+
 
 
 predictions = []
