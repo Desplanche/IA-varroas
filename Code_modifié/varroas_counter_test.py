@@ -18,6 +18,12 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import roc_curve
 from sklearn.metrics import roc_auc_score
 from matplotlib import pyplot
+import PIL
+from tensorflow import keras
+from keras import layers
+from keras.models import Sequential
+import pathlib
+from keras.utils import load_img, img_to_array
 
 f, (ax1, ax2) = plt.subplots(1, 2) # create subplots
 coor_crop = [] # liste des coordonnées des crops
@@ -238,7 +244,9 @@ for i, crop in enumerate(final_crop):
 
 
 # Charger le modèle Keras préalablement entraîné
-model = keras.models.load_model('my_model_200.h5')
+#model = keras.models.load_model('model.h5')
+model = keras.models.load_model('model.h5', encoding='latin1')
+
 
 
 
