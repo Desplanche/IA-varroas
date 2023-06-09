@@ -245,12 +245,12 @@ for i, crop in enumerate(final_crop):
 
 # Charger le modèle Keras préalablement entraîné
 #model = keras.models.load_model('model.h5')
-model = keras.models.load_model('model.h5', encoding='latin1')
+model = keras.models.load_model('model_test1.h5')
 
 
 
 
-predictions = []
+predictions = []     
 
 for crop in final_crop:
     # Prétraitement de l'image pour l'adapter à l'entrée du modèle
