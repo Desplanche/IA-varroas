@@ -204,9 +204,9 @@ Image_0 = workingImage.copy() # on garde l'image de départ intact
 
 # Recherche du blob : "Vincent-Fabrice-Jody" dans Image_1  => "def analyse"
 nbVarroas, im_with_keypoints, blank_image, crops = analyse(s_nom_fichier, parameters_blob, Image_0, compte_crop_1)
+
 cv2.imshow("Crop Image", crops[2])
 cv2.waitKey(0)
-
 
 num_crop = 0
 final_crop = []
@@ -234,6 +234,7 @@ for crop in crops:
 
     final_crop.append(image_crop)
     num_crop += 1
+print(final_crop)
 
 for i, crop in enumerate(final_crop):
     print(f"Displaying crop {i}")
@@ -245,7 +246,7 @@ for i, crop in enumerate(final_crop):
 
 # Charger le modèle Keras préalablement entraîné
 #model = keras.models.load_model('model.h5')
-model = keras.models.load_model('model_test1.h5')
+model = tf.keras.models.load_model('model.h5', compile=True)
 
 
 
