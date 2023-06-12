@@ -164,8 +164,8 @@ def analyse(filename,parameters,image,compte_crop):
     
     cv2.imwrite('final_blank_image.jpg',blank_image)     # ecrit le fichier  sur le disque 
     output= mon_resize(blank_image,25) # retaille la page à 25%
-    cv2.imshow('image_blob',output) # imprime la page sur l'écran
-    cv2.waitKey(0) # stop l'éxécution
+    #cv2.imshow('image_blob',output) # imprime la page sur l'écran
+    #cv2.waitKey(0) # stop l'éxécution
     return nb_varroas, im_with_keypoints, blank_image, crops 
 
 # passage avec les paramètres du "blob : Vincent-Fabrice-Jody" 
@@ -196,8 +196,8 @@ print ('data ' , data)
 s_nom_fichier = filename
 # affichage de l'image d'origine retaillée 
 output = mon_resize(workingImage,25) # retaille la page à 25% pour l'affichage
-cv2.imshow(filename,output) # affiche la page sur l'écran 
-cv2.waitKey(0) # stop l'éxécution  
+#cv2.imshow(filename,output) # affiche la page sur l'écran 
+#cv2.waitKey(0) # stop l'éxécution  
 
 compte_crop_1 = 0 # pour le décompte de la sauvegarde des crops
 Image_0 = workingImage.copy() # on garde l'image de départ intact
@@ -205,8 +205,8 @@ Image_0 = workingImage.copy() # on garde l'image de départ intact
 # Recherche du blob : "Vincent-Fabrice-Jody" dans Image_1  => "def analyse"
 nbVarroas, im_with_keypoints, blank_image, crops = analyse(s_nom_fichier, parameters_blob, Image_0, compte_crop_1)
 
-cv2.imshow("Crop Image", crops[2])
-cv2.waitKey(0)
+#cv2.imshow("Crop Image", crops[2])
+#cv2.waitKey(0)
 
 num_crop = 0
 final_crop = []
@@ -249,9 +249,9 @@ for i, crop in enumerate(final_crop):
 model = tf.keras.models.load_model('model.h5', compile=True)
 
 
-
-
-predictions = []     
+class_labels = ["varroa", "non_varroa"] 
+predictions = []
+varroa_count = 0  # Variable pour compter le nombre de varroas détectés
 
 for crop in final_crop:
     # Prétraitement de l'image pour l'adapter à l'entrée du modèle
@@ -267,6 +267,14 @@ for crop in final_crop:
     # Ajouter la prédiction à la liste des prédictions
     predictions.append(prediction)
 
+    # Compter le nombre de varroas détectés
+    if class_labels[np.argmax(prediction)] == "varroa":
+        varroa_count += 1
+
 # Utiliser les prédictions comme nécessaire
 for i, prediction in enumerate(predictions):
-    print(f"Prediction for crop {i}: {prediction}")
+    class_index = np.argmax(prediction)  # Indice de la classe prédite
+    class_label = class_labels[class_index]  # Label de la classe prédite
+    print(f"Prediction for crop {i}: {class_label}")
+
+print(f"Number of varroas detected: {varroa_count}")
