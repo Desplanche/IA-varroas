@@ -6,7 +6,7 @@ num_crop = 0
 folder0 = "./varroas/"
 folder1 = "./varoas_rotation/"
 
-image_names = os.listdir(folder0)
+image_names = os.listdir(folder0)   
 
 for filename in image_names:
     fname = folder0 + filename
