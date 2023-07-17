@@ -278,3 +278,43 @@ for i, prediction in enumerate(predictions):
     print(f"Prediction for crop {i}: {class_label}")
 
 print(f"Number of varroas detected: {varroa_count}")
+
+print("choix de la période :")
+print("1 : Avril à Mai")
+print("2 : Mai à Juin")
+print("3 : Juillet")
+print("4 : Août à Septembre")
+print("5 : Octobre à Novembre")
+# Demande à l'utilisateur de saisir la période
+periode = input("Entrez la période (1, 2, 3, 4 ou 5) : ")
+
+# Demande à l'utilisateur de saisir le nombre de varroas
+nb_varroas = varroa_count
+
+# Vérification de la période choisie
+if periode == "1":
+    
+    # Vérification du nombre de varroas
+    if nb_varroas > 5:
+        print("Il faut traiter")
+    else:
+        print("Tout va bien")
+
+elif periode == "2":
+    # Code à exécuter pour la période 2
+    print("Code spécifique pour la période 2")
+
+elif periode == "3":
+    # Code à exécuter pour la période 3
+    print("Code spécifique pour la période 3")
+
+elif periode == "4":
+    # Code à exécuter pour la période 3
+    print("Code spécifique pour la période 3")
+
+elif periode == "5":
+    # Code à exécuter pour la période 3
+    print("Code spécifique pour la période 3")
+
+else:
+    print("Période invalide")
