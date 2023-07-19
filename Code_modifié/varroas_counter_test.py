@@ -301,20 +301,36 @@ if periode == "1":
         print("Tout va bien")
 
 elif periode == "2":
-    # Code à exécuter pour la période 2
-    print("Code spécifique pour la période 2")
+
+    # Vérification du nombre de varroas
+    if nb_varroas > 8:
+        print("Il faut traiter")
+    else:
+        print("Tout va bien")
 
 elif periode == "3":
-    # Code à exécuter pour la période 3
-    print("Code spécifique pour la période 3")
+
+    # Vérification du nombre de varroas
+    if nb_varroas > 10:
+        print("Il faut traiter")
+    else:
+        print("Tout va bien")
 
 elif periode == "4":
-    # Code à exécuter pour la période 3
-    print("Code spécifique pour la période 3")
+
+    # Vérification du nombre de varroas
+    if nb_varroas > 4:
+        print("Il faut traiter")
+    else:
+        print("Tout va bien")
 
 elif periode == "5":
-    # Code à exécuter pour la période 3
-    print("Code spécifique pour la période 3")
+
+    # Vérification du nombre de varroas
+    if nb_varroas > 1:
+        print("Il faut traiter")
+    else:
+        print("Tout va bien")
 
 else:
     print("Période invalide")
